@@ -156,7 +156,7 @@ class RankRandom(Ranker):
 
 class RankMC4(Ranker):
     """
-    A python implementation of the Markov Chain 4 method proposed by Dwork et al. 2011.
+    A python implementation of the Markov Chain 4 method proposed by Dwork et al. 2001.
     This implementation is still in the experimental stage.
     """
     def start(self, N=1000, t=1000):
