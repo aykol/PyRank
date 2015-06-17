@@ -8,6 +8,9 @@ import scipy.linalg as LA
 import itertools, time, tools, math
 
 class Ranker:
+    """
+    Base class for all ranking algorithms
+    """
     def __init__(self,m,distance_method='Spearman'):
         self.m = m #is the data object which has all relevant information
         self.n = len(self.m.a_l)
@@ -27,8 +30,13 @@ class Ranker:
         print "Scoring method = %s" % self.distance_method.name
         print "Minimum score = %.2f" % self.score
 
-class RandomWeights(Ranker): #This is a multi-objective optimizer
-
+class RandomWeights(Ranker):
+    """
+    A ranking algorithm that samples the multi-objective function
+    F(x) = Sum(w_i*f_i) with random w_i for N times. This is a simple
+    multi-objective algorithm to the select best candidates without
+    having to specify weights initially. Features have to be scaled.
+    """
     def start(self,scaling_method='MinMax_scale',N=10,t=100):
         self.scaling_method = scaling_method
         if self.scaling_method == 'MinMax_scale':
@@ -63,6 +71,10 @@ class RandomWeights(Ranker): #This is a multi-objective optimizer
         #s_list has accumulated ranks for N iterations of rand.weights
 
 class RankBrute(Ranker):
+    """
+    Brute-force rank aggregation. Will be computationally intractable even
+    with the lists with >= 10 elements.
+    """
     def start(self, freq=5000):
         print "Starting Brute-Force rank aggregation"
         self.method_name = 'Brute-force'
@@ -91,6 +103,11 @@ class RankBrute(Ranker):
 
 
 class RankBorda(Ranker):
+    """
+    A fast aggergation algorithm which uses the rank of a candidate in each list as a
+    measure of its score in that list, and accumulates the total score for each candidate
+    to come up with a master list where candidates are ranked by this total score.
+    """
     def start(self, freq=5000):
         print "Starting Rank Aggregation with Borda's method"
         self.method_name = "Borda's method"
@@ -109,8 +126,14 @@ class RankBorda(Ranker):
         self.time = float(time.time())-start_time
 
 class RankRandom(Ranker):
+    """
+    A benchmark algorithm to evaluate the performance of rank aggregation algorithms in a given problem.
+    It will generate a set of N completely randomly ranked super-list and return an expectation
+    value for the upper bound for the distance. If any method yields a total distance worse (larger) than 
+    this, there must be something wrong!
+    """
     def start(self, N=100):
-        print "Starting random ranjing with %d random weights" % N
+        print "Starting random ranking with %d random weights" % N
         #average 100 random rankings
         self.method_name = "Random ranking"
         m = self.m.a_ranks
@@ -132,6 +155,10 @@ class RankRandom(Ranker):
         self.time = float(time.time())-start_time
 
 class RankMC4(Ranker):
+    """
+    A python implementation of the Markov Chain 4 method proposed by Dwork et al. 2011.
+    This implementation is still in the experimental stage.
+    """
     def start(self, N=1000, t=1000):
         print "Starting Markov Chain Rank Aggregation"
         self.method_name = "Markov Chain Ranking"

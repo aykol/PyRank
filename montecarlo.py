@@ -8,6 +8,10 @@ import itertools, time, tools, math
 import minimizers
 
 class CrossEntropy(minimizers.Ranker):
+    """
+    The Cross-Entropy Monte Carlo approach as introduced by Pihur et al. BMC Bioinformatics 2009.
+    This implementation is still in the experimental stage. 
+    """
     def start(self,k=9,N=5000,rho=0.01,w=0.1,epsilon=1.0e-5):
         #top-k list: 0 will compute k = n (# of candidates)
         self.method_name = "Cross Entropy Monte Carlo"

@@ -7,6 +7,14 @@ import time
 import tools, minimizers, montecarlo
 
 class FeatureSet:
+    """
+
+    Basic class to input feature lists and perform basic operations on the lists.
+    Can load data from a CSV file with a header row such as "candidate, list1, list2, ..."
+    left-most column stores the names for candidates. Can perform Z-scaling and Min-Max
+    scaling on data for multi-objective optimization.
+
+    """
     def __init__(self):
         print "Initialized a set of feature lists"
 
@@ -44,6 +52,8 @@ class FeatureSet:
             self.minmax_scaled.append([(x-min)/(max-min) for x in i])
         self.minmax_scaled = np.array(self.minmax_scaled)
 
+
+
 if __name__ == "__main__":
     new_test = FeatureSet()
     new_test.load_data('data_files/toyset2')
@@ -53,16 +63,13 @@ if __name__ == "__main__":
     new_test.MinMax_scale()
     mo = minimizers.RandomWeights(new_test)
     mo.start()    
-#    mc = minimizers.RankMC4(new_test)
-#    mc.start()
+    mc = minimizers.RankMC4(new_test)
+    mc.start()
     brute = minimizers.RankBrute(new_test)
+    brute.start()
     borda = minimizers.RankBorda(new_test)
     borda.start()
     random = minimizers.RankRandom(new_test)
     random.start()
-    brute.start() 
     mcmc = montecarlo.CrossEntropy(new_test,40)
     x = mcmc.start()
-
-    
-

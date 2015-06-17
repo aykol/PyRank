@@ -4,6 +4,10 @@ import scipy.stats as ss
 import itertools
 import time
 
+"""
+Several functions used by algorithms.
+"""
+
 def get_ranks(m):
     ranks = []    
     for i in m:
