@@ -73,3 +73,4 @@ if __name__ == "__main__":
     random.start()
     mcmc = montecarlo.CrossEntropy(new_test,40)
     x = mcmc.start()
+#
