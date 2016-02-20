@@ -1,5 +1,4 @@
 import numpy as np
-import math
 import scipy.stats as ss
 import itertools
 import time
@@ -53,7 +52,7 @@ def GetLeftEigen(M):
     l_eig2=l_eig2/s2
     return l_eig2
  
-# A Power Iterater that to compute dominant left eigenvector of square matrix m
+# A Power Iterator that to compute dominant left eigenvector of square matrix m
 def PowerIterate(m,iteration=10):
     start =float(time.time())
     n = len(m)
