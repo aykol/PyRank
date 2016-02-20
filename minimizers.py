@@ -211,14 +211,14 @@ class RankMC4(Ranker):
                         count = self.N 
                 print "%d current absorbing states %s" % ( count, str( absorbing_states ) )
                 # Second compute current score
-                eigen = tools.GetLeftEigen(M)
+                eigen = tools.getlefteigen(M)
                 s_list = tools.get_ranks([1-eigen])[0]
                 dist = 0.0
                 for l in m:
                     dist += self.distance_method(l,s_list)
                 print "Current score: %.2f" % dist
 
-        eigen = tools.GetLeftEigen(M)
+        eigen = tools.getlefteigen(M)
         s_list = tools.get_ranks([1-eigen])[0]
         dist = 0.0
         for l in m:
