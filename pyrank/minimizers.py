@@ -4,7 +4,6 @@ Minimizer algorithms
 """
 
 import numpy as np
-import scipy.linalg as LA
 import itertools, time, tools, math
 
 class Ranker:
@@ -104,11 +103,11 @@ class RankBrute(Ranker):
 
 class RankBorda(Ranker):
     """
-    A fast aggergation algorithm which uses the rank of a candidate in each list as a
+    A fast aggregation algorithm which uses the rank of a candidate in each list as a
     measure of its score in that list, and accumulates the total score for each candidate
     to come up with a master list where candidates are ranked by this total score.
     """
-    def start(self, freq=5000):
+    def start(self):
         print "Starting Rank Aggregation with Borda's method"
         self.method_name = "Borda's method"
         m = self.m.a_ranks
@@ -128,7 +127,7 @@ class RankBorda(Ranker):
 class RankRandom(Ranker):
     """
     A benchmark algorithm to evaluate the performance of rank aggregation algorithms in a given problem.
-    It will generate a set of N completely randomly ranked super-list and return an expectation
+    It will generate a set of N randomly ranked super-lists and return an expectation
     value for the upper bound for the distance. If any method yields a total distance worse (larger) than 
     this, there must be something wrong!
     """

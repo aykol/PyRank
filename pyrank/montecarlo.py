@@ -69,7 +69,7 @@ class CrossEntropy(minimizers.Ranker):
                     for i in range(a):
                         q += sorted_samples[i][0][j,r]
                     corr = w*float(q)/a
-                    conv += np.fabs(corr - w*p[j,r]) #This is simply the difference p(t+1)-p(t)
+                    conv += np.fabs(corr - w*p[j,r]) # This is simply the difference p(t+1)-p(t)
                     p[j,r] = (1-w)*p[j,r] + corr
             conv = conv/n/k
             t_end = float(time.time())
@@ -92,8 +92,7 @@ class CrossEntropy(minimizers.Ranker):
             candidate = np.where(matrix[:,i]==1.0)[0][0]
             l[candidate] = i+1
         return l
-                         
-          
+
     def get_score(self,l):       
         dist = 0.0
         for i in self.m.a_ranks:
